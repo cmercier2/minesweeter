@@ -1,4 +1,4 @@
-.PHONY: tests  
-tests :  
+.PHONY: tests
+tests :
 	@echo "Running tests..."
-	pytest -v  
+	pytest -v

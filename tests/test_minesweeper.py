@@ -7,6 +7,7 @@ from src.minesweeper import Minesweeper
 
 def test_module_exists():
     import src.minesweeper as minesweeper
+
     assert minesweeper
 
 

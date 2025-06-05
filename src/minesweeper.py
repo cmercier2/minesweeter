@@ -1,4 +1,3 @@
-
 """This module implements the Minesweeper game."""
 
 # minesweeper.py
