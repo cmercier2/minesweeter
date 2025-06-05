@@ -65,7 +65,3 @@ def test_win_condition(game):
     assert game.is_winner() is True
 
     # tests/test_minesweeper.py
-
-
-def test_fail():
-    assert False
