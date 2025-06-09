@@ -25,3 +25,18 @@ jobs:
     # Use Google official GHA to deploy 🎉
     - id: 'deploy'
       uses: 'google-github-actions/deploy-appengine@v1'
+
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Configure Docker to use gcloud as a credential helper
+      run: |
+        gcloud auth configure-docker ${{ secrets.GCP_LOCATION }}-docker.pkg.dev
+
+    - name: Build and Push Docker image
+      run: |
+        IMAGE_URI="${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_REPOSITORY }}/${{ env.PROJECT_ENV  }}:latest"
+        docker build -t "$IMAGE_URI" .
+        docker push "$IMAGE_URI"
