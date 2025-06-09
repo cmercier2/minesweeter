@@ -4,6 +4,7 @@ on:
     branches:
       - main
 
+
 jobs:
   deploy-to-app-engine:
     runs-on: ubuntu-latest
@@ -37,6 +38,6 @@ jobs:
 
     - name: Build and Push Docker image
       run: |
-        IMAGE_URI="${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_REPOSITORY }}/${{ env.PROJECT_ENV  }}:latest"
+        IMAGE_URI="${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_REPOSITORY }}/minesweeper-app:latest"
         docker build -t "$IMAGE_URI" .
         docker push "$IMAGE_URI"
