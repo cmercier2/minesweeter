@@ -44,7 +44,7 @@ jobs:
 
     - name: Deploy to Cloud Run
       run: |
-        gcloud run deploy my-service-${{ secrets.GCP_PROJECT_ENV  }}  \
+        gcloud run deploy ${{ secrets.GCP_PROJECT_ENV  }}  \
         --image "${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_REPOSITORY }}/${{ secrets.GCP_PROJECT_ENV  }}:latest" \
         --platform managed \
         --region ${{ secrets.GCP_LOCATION }} \
