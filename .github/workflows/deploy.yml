@@ -24,8 +24,8 @@ jobs:
         credentials_json: '${{ secrets.GCP_KEY }}'
 
     # Use Google official GHA to deploy 🎉
-    - id: 'deploy'
-      uses: 'google-github-actions/deploy-appengine@v1'
+    #- id: 'deploy'
+      #uses: 'google-github-actions/deploy-appengine@v1'
 
     - name: Set up Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
