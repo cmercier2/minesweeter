@@ -38,6 +38,20 @@ jobs:
 
     - name: Build and Push Docker image
       run: |
-        IMAGE_URI="${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_REPOSITORY }}/minesweeper-app:latest"
+        IMAGE_URI="${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_REPOSITORY }}/${{ secrets.GCP_PROJECT_ENV }}:latest"
         docker build -t "$IMAGE_URI" .
         docker push "$IMAGE_URI"
+
+    - name: Deploy to Cloud Run
+      run: |
+        gcloud run deploy my-service-${{ env.MY_PROJECT_ENV  }}  \
+        --image "${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_REPOSITORY }}/${{ env.MY_PROJECT_ENV  }}:latest" \
+        --platform managed \
+        --region ${{ secrets.GCP_LOCATION }} \
+        --port 8080 \
+        --memory 512Mi \
+        --cpu 1 \
+        --max-instances 1 \
+        --project ${{ secrets.GCP_PROJECT_ID  }} \
+        --service-account ${{ secrets.GCP_KEY }} \
+        --set-env-vars MY_ENV=${{ secrets.GCP_PROJECT_ENV }}
